@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 </head>
 <body>
 <a id="custom-login-btn" href="javascript:loginWithKakao()">카카오 계정으로 로그인</a>
 <p id="token-result"></p>
 
-<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript" defer>
+
     function loginWithKakao() {
-        Kakao.Auth.authorize({
-            redirectUri: 'http://localhost:8080/login'
+        window.Kakao.Auth.authorize({
+            redirectUri: [[${@environment.getProperty('kakao.authorize.redirect.url')}]] ,
         })
     }
     // 아래는 데모를 위한 UI 코드입니다.
+    if(!window.Kakao.isInitialized()){
+        console.log(true)
+        window.Kakao.init('105b7d8ce2d0ef77f8e9cdda21b04a60')
+    }
+
     displayToken()
     function displayToken() {
-        const token = getCookie('authorize-access-token')
+        const token = getCookie('ㅌ')
         if(token) {
             Kakao.Auth.setAccessToken(token)
             Kakao.Auth.getStatusInfo(({ status }) => {
@@ -31,6 +37,7 @@
         }
     }
     function getCookie(name) {
+        console.log("call getCookie")
         const value = "; " + document.cookie;
         const parts = value.split("; " + name + "=");
         if (parts.length === 2) return parts.pop().split(";").shift();

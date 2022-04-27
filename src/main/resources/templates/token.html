@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+</head>
+<body>
+<p>인가 토큰 받기 성공</p>
+tokenType : <div th:text="${response.tokenType}"></div>
+accessToken : <div th:text="${response.accessToken}"></div>
+idToken : <div th:text="${response.idToken}"></div>
+expiresIn : <div th:text="${response.expiresIn}"></div>
+refreshToken : <div th:text="${response.refreshToken}"></div>
+refreshTokenExpiresIn : <div th:text="${response.refreshTokenExpiresIn}"></div>
+scope : <div th:text="${response.scope}"></div>
+
+</body>
+</html>
