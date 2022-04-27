@@ -24,8 +24,8 @@ public class KakaoController {
     @GetMapping("/token")
     public String token(HttpServletRequest request, Model model){
         String code = request.getParameter("code");
-//        GetTokenResponse response = authService.getToken(code);
-//        model.addAttribute("response", response);
+        GetTokenResponse response = authService.getToken(code);
+        model.addAttribute("response", response);
         return "token";
     }
 }

@@ -7,13 +7,13 @@
 </head>
 <body>
 <p>인가 토큰 받기 성공</p>
-tokenType : <div th:text="${response.tokenType}"></div>
-accessToken : <div th:text="${response.accessToken}"></div>
-idToken : <div th:text="${response.idToken}"></div>
-expiresIn : <div th:text="${response.expiresIn}"></div>
-refreshToken : <div th:text="${response.refreshToken}"></div>
-refreshTokenExpiresIn : <div th:text="${response.refreshTokenExpiresIn}"></div>
-scope : <div th:text="${response.scope}"></div>
+tokenType : <span th:text="${response.tokenType}?:_"></span> <br/>
+accessToken : <span th:text="${response.accessToken}?:_"></span> <br/>
+idToken : <span th:text="${response.idToken}?:_"></span> <br/>
+expiresIn : <span th:text="${response.expiresIn}?:_"></span> <br/>
+refreshToken : <span th:text="${response.refreshToken}?:_"></span> <br/>
+refreshTokenExpiresIn : <span th:text="${response.refreshTokenExpiresIn}?:_"></span> <br/>
+scope : <span th:text="${response.scope}?:_"></span> <br/>
 
 </body>
 </html>

@@ -3,6 +3,7 @@ package kakao.login.kakaologin.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kakao.login.kakaologin.api.response.GetTokenResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +15,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Component
+@Slf4j
 public class KakaoAuthApi {
 
     private final WebClient webClient;
@@ -28,14 +30,14 @@ public class KakaoAuthApi {
 
     public KakaoAuthApi(ObjectMapper objectMapper) {
         this.webClient = WebClient.builder()
-                .baseUrl("http://kauth.kakao.com")
+                .baseUrl("https://kauth.kakao.com")
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .build();
         this.objectMapper = objectMapper;
     }
 
     public GetTokenResponse getToken(String code, String redirectUrl){
-        webClient.post()
+        return webClient.post()
                 .uri(GET_TOKEN_URL)
                 .body(BodyInserters.fromFormData("grant_type", "authorization_code")
                         .with("client_id", REST_API_APP_KEY)
@@ -43,9 +45,11 @@ public class KakaoAuthApi {
                         .with("code", code)
                         .with("client_secret", CLIENT_SECRET)
                 ).retrieve()
-                .bodyToMono(String.class)
-                .onErrorMap(e -> new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "카카오 인증 서버 요청에 실패하였습니다."))
-                .block();
-        return
+                .bodyToFlux(GetTokenResponse.class)
+                .onErrorMap(e -> {
+                    log.error("카카오 인증 서버 요청에 실패하였습니다.", e);
+                    return new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "카카오 인증 서버 요청에 실패하였습니다.");
+                })
+                .blockLast();
     }
 }
