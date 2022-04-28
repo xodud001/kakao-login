@@ -3,6 +3,7 @@ package kakao.login.kakaologin.api.response;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import kakao.login.kakaologin.api.KakaoAccount;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ public class GetMemberInfoResponse {
     private Boolean hasSignedUp;
     private LocalDateTime connectedAt;
     private LocalDateTime synchedAt;
-    private List<String> properties;
-    private Object kakaoAccount;
+    private PropertiesResponse properties;
+    private KakaoAccount kakaoAccount;
 
 }

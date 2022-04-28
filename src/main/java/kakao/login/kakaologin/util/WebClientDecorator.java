@@ -11,7 +11,7 @@ public class WebClientDecorator {
     public WebClientDecorator(){
         //TODO: URL 외부에서 주입 할 수 있도록 수정해야됨
         this.webClient = WebClient.builder()
-                .baseUrl("http://kauth.kakao.com")
+                .baseUrl("https://kauth.kakao.com")
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .build();
     }
