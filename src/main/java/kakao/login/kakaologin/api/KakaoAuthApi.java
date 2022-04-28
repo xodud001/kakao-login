@@ -2,6 +2,7 @@ package kakao.login.kakaologin.api;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import kakao.login.kakaologin.api.response.GetMemberInfoResponse;
 import kakao.login.kakaologin.api.response.GetTokenResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +26,7 @@ public class KakaoAuthApi {
     private static final String CLIENT_SECRET = "mdWizUsYCJGYeLvJSvxeg4eVK6k1yS39";
 
     private static final String GET_TOKEN_URL = "/oauth/token";
+    private static final String GET_MEMBER_INFO_URL = "/v2/user/me";
 
 
 
@@ -49,6 +51,19 @@ public class KakaoAuthApi {
                 .onErrorMap(e -> {
                     log.error("카카오 인증 서버 요청에 실패하였습니다.", e);
                     return new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "카카오 인증 서버 요청에 실패하였습니다.");
+                })
+                .blockLast();
+    }
+
+    public GetMemberInfoResponse getMemberInfo(String accessToken){
+        return webClient.post()
+                .uri(GET_MEMBER_INFO_URL)
+                .header("Authorization", "Bearer " + accessToken)
+                .retrieve()
+                .bodyToFlux(GetMemberInfoResponse.class)
+                .onErrorMap(e -> {
+                    log.error("카카오 사용자 정보 조회에 실패하였습니다.", e);
+                    return new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "카카오 사용자 정보 조회에 실패하였습니다.");
                 })
                 .blockLast();
     }

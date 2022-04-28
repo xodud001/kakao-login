@@ -1,5 +1,6 @@
 package kakao.login.kakaologin.controller;
 
+import kakao.login.kakaologin.api.response.GetMemberInfoResponse;
 import kakao.login.kakaologin.api.response.GetTokenResponse;
 import kakao.login.kakaologin.service.KakaoAuthService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,9 @@ public class KakaoController {
     public String token(HttpServletRequest request, Model model){
         String code = request.getParameter("code");
         GetTokenResponse response = authService.getToken(code);
+        GetMemberInfoResponse userInfo = authService.getUserInfo(response.getAccessToken());
         model.addAttribute("response", response);
+        model.addAttribute("useInfo", userInfo);
         return "token";
     }
 }

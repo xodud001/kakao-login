@@ -1,8 +1,8 @@
 package kakao.login.kakaologin.service;
 
 import kakao.login.kakaologin.api.KakaoAuthApi;
+import kakao.login.kakaologin.api.response.GetMemberInfoResponse;
 import kakao.login.kakaologin.api.response.GetTokenResponse;
-import kakao.login.kakaologin.controller.response.KakaoLoginResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,5 +18,9 @@ public class KakaoAuthService {
 
     public GetTokenResponse getToken(String code){
         return api.getToken(code, redirectUrl);
+    }
+
+    public GetMemberInfoResponse getUserInfo(String accessToken){
+        return api.getMemberInfo(accessToken);
     }
 }
