@@ -15,5 +15,12 @@ refreshToken : <span th:text="${response.refreshToken}?:_"></span> <br/>
 refreshTokenExpiresIn : <span th:text="${response.refreshTokenExpiresIn}?:_"></span> <br/>
 scope : <span th:text="${response.scope}?:_"></span> <br/>
 
+<p>유저 정보</p>
+id : <span th:text="${userInfo.id}?:_"></span> <br/>
+connectedAt : <span th:text="${userInfo.connectedAt}?:_"></span> <br/>
+nickname : <span th:text="${userInfo.properties.nickname}?:_"></span> <br/>
+email : <span th:text="${userInfo.kakaoAccount.email}?:_"></span> <br/>
+
+
 </body>
 </html>

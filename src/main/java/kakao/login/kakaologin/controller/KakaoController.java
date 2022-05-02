@@ -28,7 +28,7 @@ public class KakaoController {
         GetTokenResponse response = authService.getToken(code);
         GetMemberInfoResponse userInfo = authService.getUserInfo(response.getAccessToken());
         model.addAttribute("response", response);
-        model.addAttribute("useInfo", userInfo);
+        model.addAttribute("userInfo", userInfo);
         return "token";
     }
 }
